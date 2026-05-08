@@ -1,0 +1,58 @@
+<div class="toolbar">
+  <label class="toolbar-label" for="totalRowsSelect">Total Rows:</label>
+  <mat-select
+    id="totalRowsSelect"
+    class="row-select"
+    [(ngModel)]="totalRows"
+    (ngModelChange)="onTotalChange()">
+    <mat-option *ngFor="let opt of rowOptions" [value]="opt">
+      {{ opt | number }} rows
+    </mat-option>
+  </mat-select>
+
+  <span class="spacer"></span>
+
+  <ng-container *ngIf="downloading">
+    <mat-progress-bar mode="determinate" [value]="downloadProgress"></mat-progress-bar>
+    <span class="progress-text">{{ downloadProgress }}%</span>
+  </ng-container>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="downloadCsv()"
+    [disabled]="downloading"
+    matTooltip="Stream CSV download">
+    <mat-icon>download</mat-icon>
+    {{ downloading ? 'Downloading...' : 'Download CSV' }}
+  </button>
+</div>
+
+<div *ngIf="errorMessage" class="error-banner" role="alert">
+  <mat-icon>error_outline</mat-icon>
+  <span>{{ errorMessage }}</span>
+</div>
+
+<div class="table-container">
+  <cdk-virtual-scroll-viewport itemSize="48" class="viewport">
+    <table>
+      <thead>
+        <tr>
+          <th *ngFor="let col of columns">{{ capitalize(col) }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *cdkVirtualFor="let row of rows; trackBy: trackById">
+          <td *ngFor="let col of columns">{{ getCell(row, col) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </cdk-virtual-scroll-viewport>
+</div>
+
+<div class="pagination">
+  <button mat-button (click)="prevPage()" [disabled]="page === 1 || loading">Prev</button>
+  <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+  <button mat-button (click)="nextPage()" [disabled]="page >= totalPages || loading">Next</button>
+  <span *ngIf="loading" class="loading-text">Loading...</span>
+</div>
