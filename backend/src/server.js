@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors({
   origin: ['http://localhost:4200', 
     'http://localhost:4201',
-  'https://your-frontend-app.vercel.app' 
+  'https://stream-csv-project-tl8y.vercel.app' 
 ],
   exposedHeaders: ['X-Total-Rows']
 }));
