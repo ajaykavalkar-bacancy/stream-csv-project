@@ -33,7 +33,7 @@ export class DataTableComponent implements OnInit {
   columns = ['id', 'firstName', 'lastName', 'email', 'department', 'salary', 'joiningDate', 'country', 'status', 'score'];
   rows: DataRecord[] = [];
   totalRows = 50000;
-  rowOptions = [50000, 100000, 150000, 180000];
+  rowOptions = [50000, 100000, 150000, 180000, 1000000];
 
   page = 1;
   pageSize = 200;

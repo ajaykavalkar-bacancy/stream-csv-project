@@ -8,9 +8,11 @@ const BATCH = 1000;
 const MAX_TOTAL = 180000;
 const MAX_LIMIT = 500;
 
+const DEFAULT_TOTAL = 1000000;
+
 function parseTotal(raw) {
   const n = parseInt(raw, 10);
-  if (!Number.isFinite(n) || n <= 0) return 50000;
+  if (!Number.isFinite(n) || n <= 0) return DEFAULT_TOTAL;
   return Math.min(n, MAX_TOTAL);
 }
 
